@@ -99,11 +99,12 @@ export class ThrustinCdkStack extends cdk.Stack {
       protocol: elbv2.ApplicationProtocol.HTTP,
     });
 
-    // There is no health check endpoint on the backend. When you try and hit the root,
-    // the backend is returning a 400 as it expects a websocket connection.
     targetGroup.configureHealthCheck({
+      // There is no health check endpoint on the backend. When you try and hit the root,
+      // the backend is returning a 400 as it expects a websocket connection.
       healthyHttpCodes: "200,400",
-      
+      // Make logging less filled with web socket connection errors, max value is 300
+      interval: cdk.Duration.seconds(300),
     });
 
     targetGroup.addTarget(fargate);
