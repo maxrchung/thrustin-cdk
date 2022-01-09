@@ -63,7 +63,7 @@ export class ThrustinCdkStack extends cdk.Stack {
       containerName: 'thrustin-container',
       image: ecs.ContainerImage.fromRegistry('maxrchung/thrustin'),
       environment: {
-        DATABASE_CONNECTION_STRING: ssm.StringParameter.valueForStringParameter(this, 'cloud-mongo-connection-string'),
+        DATABASE_CONNECTION_STRING: ssm.StringParameter.valueForStringParameter(this, 'thrustin-database-url'),
       },
       logging: ecs.LogDriver.awsLogs({
         logGroup: logGroup,
